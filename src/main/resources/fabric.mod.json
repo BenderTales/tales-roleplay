@@ -22,6 +22,8 @@
   "depends": {
     "fabricloader": ">=0.12.12",
     "fabric": "*",
-    "minecraft": "1.18.1"
+    "minecraft": "1.18.1",
+    "luckperms": ">=5.3",
+    "tales-chat-api": ">=1.0.0-RC.3"
   }
 }
