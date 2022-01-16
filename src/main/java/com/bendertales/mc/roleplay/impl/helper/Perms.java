@@ -28,11 +28,11 @@ public final class Perms {
 	}
 
 	public static boolean isOp(ServerPlayerEntity player) {
-		return player.hasPermissionLevel(3);
+		return player.hasPermissionLevel(2);
 	}
 
 	public static boolean isOp(CommandSource commandSource) {
-		return commandSource.hasPermissionLevel(3);
+		return commandSource.hasPermissionLevel(2);
 	}
 
 	private Perms() {
