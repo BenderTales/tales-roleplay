@@ -36,13 +36,11 @@ public class CmdCharacterCreate implements ModCommand {
 	@Override
 	public void register(CommandDispatcher<ServerCommandSource> dispatcher, boolean dedicated) {
 		dispatcher.register(
-			literal("rp")
-				.then(literal("character")
-			        .then(literal("create")
-		                .requires(getRequirements())
-		                .executes(this)
-		                .then(argument("target", EntityArgumentType.player())
-	                        .executes(this::runOnOther))))
+			literal("rp").then(literal("character").then(literal("create")
+                .requires(getRequirements())
+                .executes(this)
+                .then(argument("target", EntityArgumentType.player())
+                    .executes(this::runOnOther))))
 		);
 	}
 

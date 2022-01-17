@@ -29,13 +29,12 @@ public class CmdCharacterInfo implements ModCommand {
 	@Override
 	public void register(CommandDispatcher<ServerCommandSource> dispatcher, boolean dedicated) {
 		dispatcher.register(
-			literal("rp")
-				.then(literal("character")
-                    .then(literal("info")
-                        .requires(getRequirements())
-                        .then(argument("player", EntityArgumentType.player())
-                            .then(argument("characterId", IntegerArgumentType.integer(0))
-                                .executes(this)))))
+			literal("rp").then(literal("character").then(literal("info")
+                .requires(getRequirements())
+                .then(argument("player", EntityArgumentType.player())
+                    .then(argument("characterId", IntegerArgumentType.integer(0))
+                        .executes(this)))
+			))
 		);
 	}
 

@@ -29,13 +29,12 @@ public class CmdCharacterDelete implements ModCommand {
 	@Override
 	public void register(CommandDispatcher<ServerCommandSource> dispatcher, boolean dedicated) {
 		dispatcher.register(
-			literal("rp")
-				.then(literal("character")
-			        .then(literal("delete")
-		                .requires(getRequirements())
-		                .then(argument("player", EntityArgumentType.player())
-	                        .then(argument("characterIndex", IntegerArgumentType.integer(0))
-                                .executes(this)))))
+			literal("rp").then(literal("character").then(literal("delete")
+                .requires(getRequirements())
+                .then(argument("player", EntityArgumentType.player())
+                    .then(argument("characterIndex", IntegerArgumentType.integer(0))
+                        .executes(this)))
+			))
 		);
 	}
 

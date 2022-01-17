@@ -32,7 +32,8 @@ public class CommandsRegistrar {
 			new CmdCharacterList(rolePlayManager),
 			new CmdCharacterInfo(rolePlayManager),
 			new CmdCharacterSelect(rolePlayManager),
-			new CmdCharacterRename(rolePlayManager)
+			new CmdCharacterRename(rolePlayManager),
+			new CmdCharacterReadability(rolePlayManager)
 		);
 	}
 }

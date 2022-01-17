@@ -1,9 +1,6 @@
 package com.bendertales.mc.roleplay.impl;
 
-import com.bendertales.mc.roleplay.config.CharacterProperties;
-import com.bendertales.mc.roleplay.config.CharacterVisibilityMode;
-import com.bendertales.mc.roleplay.config.ModConfiguration;
-import com.bendertales.mc.roleplay.config.PlayerConfiguration;
+import com.bendertales.mc.roleplay.config.*;
 import com.bendertales.mc.roleplay.impl.vo.RolePlayException;
 import net.minecraft.server.network.ServerPlayerEntity;
 
@@ -48,7 +45,8 @@ public class RolePlayManager {
 		var config = getOrCreatePlayerConfiguration(owner);
 
 		var character = new CharacterProperties();
-		character.setVisibilityMode(CharacterVisibilityMode.ALL);
+		character.setDefaultVisibility(CharacterVisibilityMode.CAN_SEE);
+		character.setDefaultReadability(CharacterReadabilityMode.CAN_UNDERSTAND);
 
 		var characters = config.getCharacters();
 		characters.add(character);
@@ -75,6 +73,31 @@ public class RolePlayManager {
 	public void deleteCharacter(ServerPlayerEntity player, int characterIndex) throws RolePlayException {
 		var config = getOrCreatePlayerConfiguration(player);
 		config.removeCharacter(characterIndex);
+		playerConfigurationManager.savePlayerConfiguration(player, config);
+	}
+
+	public void setDefaultReadability(ServerPlayerEntity player, int characterIndex, CharacterReadabilityMode mode)
+	throws RolePlayException {
+		var config = getOrCreatePlayerConfiguration(player);
+		var character = config.getCharacter(characterIndex);
+		character.setDefaultReadability(mode);
+		playerConfigurationManager.savePlayerConfiguration(player, config);
+	}
+
+	public void clearPlayerReadability(ServerPlayerEntity player, int characterIndex,
+	                                   ServerPlayerEntity otherPlayer) throws RolePlayException {
+
+		var config = getOrCreatePlayerConfiguration(player);
+		var character = config.getCharacter(characterIndex);
+		character.clearPlayerReadability(otherPlayer);
+		playerConfigurationManager.savePlayerConfiguration(player, config);
+	}
+
+	public void setPlayerReadability(ServerPlayerEntity player, int characterIndex, ServerPlayerEntity otherPlayer,
+	                                 CharacterReadabilityMode mode) throws RolePlayException {
+		var config = getOrCreatePlayerConfiguration(player);
+		var character = config.getCharacter(characterIndex);
+		character.setPlayerReadability(otherPlayer, mode);
 		playerConfigurationManager.savePlayerConfiguration(player, config);
 	}
 }

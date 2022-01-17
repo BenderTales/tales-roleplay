@@ -25,7 +25,15 @@ public class PlayerConfiguration {
 	}
 
 	public CharacterProperties getSelectedCharacter() {
-		return characters.get(selectedCharacterIndex);
+		if (hasCharacter()) {
+			return characters.get(selectedCharacterIndex);
+		}
+		return null;
+	}
+
+	public CharacterProperties getCharacter(int index) throws RolePlayException {
+		checkIndex(index);
+		return characters.get(index);
 	}
 
 	public void renameCharacter(int characterIndex, String newName) throws RolePlayException {

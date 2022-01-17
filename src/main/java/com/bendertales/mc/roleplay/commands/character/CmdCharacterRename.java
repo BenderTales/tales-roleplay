@@ -30,14 +30,13 @@ public class CmdCharacterRename implements ModCommand {
 	@Override
 	public void register(CommandDispatcher<ServerCommandSource> dispatcher, boolean dedicated) {
 		dispatcher.register(
-			literal("rp")
-				.then(literal("character")
-			        .then(literal("rename")
-		                .requires(getRequirements())
-		                .then(argument("player", EntityArgumentType.player())
-		                    .then(argument("characterIndex", IntegerArgumentType.integer(0))
-	                            .then(argument("new-name", StringArgumentType.greedyString())
-                                    .executes(this))))))
+			literal("rp").then(literal("character").then(literal("rename")
+                .requires(getRequirements())
+                .then(argument("player", EntityArgumentType.player())
+                    .then(argument("characterIndex", IntegerArgumentType.integer(0))
+                        .then(argument("new-name", StringArgumentType.greedyString())
+                            .executes(this))))
+			))
 		);
 	}
 
