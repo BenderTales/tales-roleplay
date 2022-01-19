@@ -100,4 +100,28 @@ public class RolePlayManager {
 		character.setPlayerReadability(otherPlayer, mode);
 		playerConfigurationManager.savePlayerConfiguration(player, config);
 	}
+
+	public void setDefaultVisibility(ServerPlayerEntity player, int characterIndex, CharacterVisibilityMode mode)
+	throws RolePlayException {
+		var config = getOrCreatePlayerConfiguration(player);
+		var character = config.getCharacter(characterIndex);
+		character.setDefaultVisibility(mode);
+		playerConfigurationManager.savePlayerConfiguration(player, config);
+	}
+
+	public void clearPlayerVisibility(ServerPlayerEntity player, int characterIndex, ServerPlayerEntity otherPlayer)
+	throws RolePlayException {
+		var config = getOrCreatePlayerConfiguration(player);
+		var character = config.getCharacter(characterIndex);
+		character.clearPlayerVisibility(otherPlayer);
+		playerConfigurationManager.savePlayerConfiguration(player, config);
+	}
+
+	public void setPlayerVisibility(ServerPlayerEntity player, int characterIndex, ServerPlayerEntity otherPlayer,
+	                                CharacterVisibilityMode mode) throws RolePlayException {
+		var config = getOrCreatePlayerConfiguration(player);
+		var character = config.getCharacter(characterIndex);
+		character.setPlayerVisibility(otherPlayer, mode);
+		playerConfigurationManager.savePlayerConfiguration(player, config);
+	}
 }
