@@ -4,8 +4,6 @@ import java.util.Collection;
 import java.util.List;
 
 import com.bendertales.mc.roleplay.commands.ModCommand;
-import com.bendertales.mc.roleplay.config.CharacterProperties;
-import com.bendertales.mc.roleplay.config.PlayerConfiguration;
 import com.bendertales.mc.roleplay.impl.RolePlayManager;
 import com.bendertales.mc.roleplay.impl.vo.RolePlayException;
 import com.mojang.brigadier.CommandDispatcher;
@@ -15,7 +13,6 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.command.EntitySelector;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 
 import static net.minecraft.server.command.CommandManager.argument;

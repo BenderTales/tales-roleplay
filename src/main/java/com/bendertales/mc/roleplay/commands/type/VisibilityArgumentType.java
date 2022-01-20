@@ -2,8 +2,7 @@ package com.bendertales.mc.roleplay.commands.type;
 
 import java.util.concurrent.CompletableFuture;
 
-import com.bendertales.mc.roleplay.config.CharacterReadabilityMode;
-import com.bendertales.mc.roleplay.config.CharacterVisibilityMode;
+import com.bendertales.mc.roleplay.data.CharacterVisibilityMode;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.context.CommandContext;

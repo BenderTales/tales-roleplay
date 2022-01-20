@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.bendertales.mc.roleplay.commands.ModCommand;
 import com.bendertales.mc.roleplay.commands.type.ReadabilityArgumentType;
-import com.bendertales.mc.roleplay.config.CharacterReadabilityMode;
+import com.bendertales.mc.roleplay.data.CharacterReadabilityMode;
 import com.bendertales.mc.roleplay.impl.RolePlayManager;
 import com.bendertales.mc.roleplay.impl.vo.RolePlayException;
 import com.mojang.brigadier.CommandDispatcher;

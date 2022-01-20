@@ -1,6 +1,10 @@
 package com.bendertales.mc.roleplay.impl;
 
 import com.bendertales.mc.roleplay.config.*;
+import com.bendertales.mc.roleplay.data.CharacterProperties;
+import com.bendertales.mc.roleplay.data.CharacterReadabilityMode;
+import com.bendertales.mc.roleplay.data.CharacterVisibilityMode;
+import com.bendertales.mc.roleplay.data.PlayerConfiguration;
 import com.bendertales.mc.roleplay.impl.vo.RolePlayException;
 import net.minecraft.server.network.ServerPlayerEntity;
 

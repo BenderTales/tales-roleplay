@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.List;
 
 import com.bendertales.mc.roleplay.commands.ModCommand;
-import com.bendertales.mc.roleplay.config.CharacterProperties;
 import com.bendertales.mc.roleplay.impl.RolePlayManager;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;

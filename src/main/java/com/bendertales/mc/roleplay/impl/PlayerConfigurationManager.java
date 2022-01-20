@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import com.bendertales.mc.roleplay.RolePlayConstants;
-import com.bendertales.mc.roleplay.config.PlayerConfiguration;
+import com.bendertales.mc.roleplay.data.PlayerConfiguration;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;

@@ -1,4 +1,4 @@
-package com.bendertales.mc.roleplay.config;
+package com.bendertales.mc.roleplay.data;
 
 import java.util.Arrays;
 import java.util.Collection;
