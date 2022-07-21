@@ -10,10 +10,12 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.command.EntitySelector;
 import net.minecraft.command.argument.EntityArgumentType;
+import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
 import static net.minecraft.server.command.CommandManager.argument;
@@ -31,7 +33,8 @@ public class CmdCharacterSelect implements ModCommand {
 	}
 
 	@Override
-	public void register(CommandDispatcher<ServerCommandSource> dispatcher, boolean dedicated) {
+	public void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess registryAccess,
+	                     CommandManager.RegistrationEnvironment environment) {
 		dispatcher.register(
 			literal("rp").then(literal("character").then(literal("select")
                 .requires(getRequirements())
@@ -57,7 +60,7 @@ public class CmdCharacterSelect implements ModCommand {
 
 		try {
 			var character = rolePlayManager.selectCharacter(player, characterIndex);
-			cmdSource.sendFeedback(new LiteralText("You selected " + character.formatName()).formatted(Formatting.GREEN), false);
+			cmdSource.sendFeedback(Text.literal("You selected " + character.formatName()).formatted(Formatting.GREEN), false);
 		}
 		catch (RolePlayException e) {
 			throw e.asCommandException();

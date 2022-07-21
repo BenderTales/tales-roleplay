@@ -3,7 +3,7 @@ package com.bendertales.mc.roleplay.config;
 import java.util.Objects;
 
 
-public class ModConfiguration {
+public class ModProperties {
 
 	private RollProperties rollDice;
 	private NewsProperties news;
@@ -42,7 +42,7 @@ public class ModConfiguration {
 		this.channels = channels;
 	}
 
-	public void mergeFrom(ModConfiguration otherConfig) {
+	public void mergeFrom(ModProperties otherConfig) {
 		if (this.rollDice == null) {
 			this.rollDice = otherConfig.rollDice;
 		}
@@ -76,7 +76,7 @@ public class ModConfiguration {
 	public boolean equals(Object o) {
 		if (this == o) { return true; }
 		if (o == null || getClass() != o.getClass()) { return false; }
-		ModConfiguration that = (ModConfiguration) o;
+		ModProperties that = (ModProperties) o;
 		return Objects.equals(rollDice, that.rollDice)
 		       && Objects.equals(news, that.news)
 		       && Objects.equals(me, that.me);

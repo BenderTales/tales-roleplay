@@ -11,7 +11,7 @@ import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import net.minecraft.command.CommandSource;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
 
@@ -22,7 +22,7 @@ public class ReadabilityArgumentType implements ArgumentType<CharacterReadabilit
 		var string = reader.readUnquotedString();
 		var mode = CharacterReadabilityMode.byName(string);
 		if (mode == null) {
-			var msg = new LiteralText("Invalid readability").formatted(Formatting.RED);
+			var msg = Text.literal("Invalid readability").formatted(Formatting.RED);
 			throw new CommandSyntaxException(new SimpleCommandExceptionType(msg), msg);
 		}
 		return mode;

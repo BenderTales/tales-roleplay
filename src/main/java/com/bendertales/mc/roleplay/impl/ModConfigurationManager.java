@@ -21,7 +21,7 @@ public class ModConfigurationManager {
 		                         .resolve(RolePlayConstants.MODID).resolve("config.json");
 	}
 
-	public ModConfiguration load() {
+	public ModProperties load() {
 		var modConfiguration = tryReadConfiguration();
 		fix(modConfiguration);
 		createIfNecessary(modConfiguration);
@@ -29,17 +29,17 @@ public class ModConfigurationManager {
 		return modConfiguration;
 	}
 
-	private void fix(ModConfiguration modConfiguration) {
-		modConfiguration.mergeFrom(defaultConfiguration());
+	private void fix(ModProperties modProperties) {
+		modProperties.mergeFrom(defaultConfiguration());
 	}
 
-	private void createIfNecessary(ModConfiguration modConfiguration) {
+	private void createIfNecessary(ModProperties modProperties) {
 		if (Files.exists(configFile)) {
-			tryWriteConfiguration(modConfiguration);
+			tryWriteConfiguration(modProperties);
 		}
 	}
 
-	private ModConfiguration tryReadConfiguration() {
+	private ModProperties tryReadConfiguration() {
 		try {
 			return readConfiguration();
 		}
@@ -49,32 +49,32 @@ public class ModConfigurationManager {
 		}
 	}
 
-	private ModConfiguration readConfiguration() throws IOException {
+	private ModProperties readConfiguration() throws IOException {
 		if (!Files.exists(configFile)) {
 			return defaultConfiguration();
 		}
 
 		var fileContent = Files.readString(configFile);
 		Gson gson = getGson();
-		return gson.fromJson(fileContent, ModConfiguration.class);
+		return gson.fromJson(fileContent, ModProperties.class);
 	}
 
-	private void tryWriteConfiguration(ModConfiguration modConfiguration) {
+	private void tryWriteConfiguration(ModProperties modProperties) {
 		try {
-			writeConfiguration(modConfiguration);
+			writeConfiguration(modProperties);
 		}
 		catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	private void writeConfiguration(ModConfiguration modConfiguration) throws IOException {
+	private void writeConfiguration(ModProperties modProperties) throws IOException {
 		if (!Files.exists(configFile)) {
 			Files.createDirectories(configFile.getParent());
 		}
 
 		var gson = getGson();
-		var configurationJson = gson.toJson(modConfiguration, ModConfiguration.class);
+		var configurationJson = gson.toJson(modProperties, ModProperties.class);
 		Files.writeString(configFile, configurationJson);
 	}
 
@@ -85,7 +85,7 @@ public class ModConfigurationManager {
 				.create();
 	}
 
-	private ModConfiguration defaultConfiguration() {
+	private ModProperties defaultConfiguration() {
 		var rollProperties = new RollProperties();
 		rollProperties.setColor("§6");
 		rollProperties.setDistance(30);
@@ -112,7 +112,7 @@ public class ModConfigurationManager {
 		channels.setYell(yell);
 		channels.setWhisper(whisper);
 
-		var modConfiguration = new ModConfiguration();
+		var modConfiguration = new ModProperties();
 		modConfiguration.setRollDice(rollProperties);
 		modConfiguration.setNews(newsProperties);
 		modConfiguration.setMe(meProperties);

@@ -3,14 +3,14 @@ package com.bendertales.mc.roleplay.impl.channels;
 import java.util.Collection;
 import java.util.function.Predicate;
 
-import com.bendertales.mc.chatapi.api.ChannelDefault;
 import com.bendertales.mc.chatapi.api.MessageVisibility;
+import com.bendertales.mc.chatapi.api.ModChannelImplementationsProvider;
 import com.bendertales.mc.chatapi.api.RecipientFilter;
 import com.bendertales.mc.roleplay.impl.helper.Perms;
 import net.minecraft.server.network.ServerPlayerEntity;
 
 
-public abstract class  AbstractDistanceChannel implements ChannelDefault {
+public abstract class  AbstractDistanceChannel implements ModChannelImplementationsProvider {
 
 	private final Collection<String> requiredPermissions;
 

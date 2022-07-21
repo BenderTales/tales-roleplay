@@ -2,7 +2,7 @@ package com.bendertales.mc.roleplay.commands.shortcuts;
 
 import java.util.Collection;
 
-import com.bendertales.mc.chatapi.api.MessageSender;
+import com.bendertales.mc.chatapi.api.Messenger;
 import com.bendertales.mc.roleplay.RolePlayConstants;
 import com.bendertales.mc.roleplay.impl.channels.SayChannel;
 import net.minecraft.util.Identifier;
@@ -10,7 +10,7 @@ import net.minecraft.util.Identifier;
 
 public class CmdChatSay extends ShortcutModCommand{
 
-	public CmdChatSay(MessageSender messageSender) {
+	public CmdChatSay(Messenger messageSender) {
 		super(messageSender);
 	}
 

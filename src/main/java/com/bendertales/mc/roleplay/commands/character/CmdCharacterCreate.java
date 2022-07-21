@@ -10,10 +10,12 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
+import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.command.EntitySelector;
 import net.minecraft.command.argument.EntityArgumentType;
+import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
 import static net.minecraft.server.command.CommandManager.argument;
@@ -34,7 +36,8 @@ public class CmdCharacterCreate implements ModCommand {
 	}
 
 	@Override
-	public void register(CommandDispatcher<ServerCommandSource> dispatcher, boolean dedicated) {
+	public void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess registryAccess,
+	                     CommandManager.RegistrationEnvironment environment) {
 		dispatcher.register(
 			literal("rp").then(literal("character").then(literal("create")
                 .requires(getRequirements())
@@ -59,20 +62,18 @@ public class CmdCharacterCreate implements ModCommand {
 
 	public int runOnOther(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
 		var cmdSource = context.getSource();
-		var cmdPlayer = cmdSource.getPlayer();
+		var cmdPlayer = cmdSource.getPlayerOrThrow();
 
 		var playerSelector = context.getArgument("target", EntitySelector.class);
 		var target = playerSelector.getPlayer(cmdSource);
-
+		
 		if (!cmdPlayer.equals(target)
 			&& !(Perms.isOp(cmdPlayer) || Perms.hasAny(cmdPlayer, PERMISSIONS_OTHER))) {
-			var msg = new LiteralText("You cannot create characters for other players").formatted(Formatting.RED);
+			var msg = Text.literal("You cannot create characters for other players").formatted(Formatting.RED);
 			throw new CommandSyntaxException(new SimpleCommandExceptionType(msg), msg);
 		}
 
 		rolePlayManager.createCharacter(target);
 		return SINGLE_SUCCESS;
 	}
-
-
 }

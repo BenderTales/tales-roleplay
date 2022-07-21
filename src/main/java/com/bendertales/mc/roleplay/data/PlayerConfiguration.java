@@ -8,10 +8,10 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 
 public class PlayerConfiguration {
 
-	private final List<CharacterProperties> characters = new ObjectArrayList<>();
-	private int selectedCharacterIndex = 0;
+	private final List<Character> characters             = new ObjectArrayList<>();
+	private int                   selectedCharacterIndex = 0;
 
-	public List<CharacterProperties> getCharacters() {
+	public List<Character> getCharacters() {
 		return characters;
 	}
 
@@ -24,14 +24,14 @@ public class PlayerConfiguration {
 		return !characters.isEmpty();
 	}
 
-	public CharacterProperties getSelectedCharacter() {
+	public Character getSelectedCharacter() {
 		if (hasCharacter()) {
 			return characters.get(selectedCharacterIndex);
 		}
 		return null;
 	}
 
-	public CharacterProperties getCharacter(int index) throws RolePlayException {
+	public Character getCharacter(int index) throws RolePlayException {
 		checkIndex(index);
 		return characters.get(index);
 	}

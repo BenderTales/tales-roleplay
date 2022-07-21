@@ -21,7 +21,7 @@ public class YellChannel extends AbstractDistanceChannel {
 
 	@Override
 	public String getDefaultFormat() {
-		return "%CHARACTER%: %MESSAGE%";
+		return "%CHARACTER%: %RP_MESSAGE%";
 	}
 
 	@Override

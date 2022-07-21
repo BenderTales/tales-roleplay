@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '0.10-SNAPSHOT'
+    id 'fabric-loom' version '0.12-SNAPSHOT'
     id 'maven-publish'
 }
 
@@ -31,7 +31,7 @@ dependencies {
     // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
     modImplementation 'me.lucko:fabric-permissions-api:0.1-SNAPSHOT'
-    modImplementation 'com.bendertales.mc:tales-chat-api:1.0.0-RC.5'
+    modImplementation 'com.bendertales.mc:tales-chat-api:1.0.0-RC.6'
 }
 
 processResources {

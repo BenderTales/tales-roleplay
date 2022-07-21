@@ -1,7 +1,7 @@
 package com.bendertales.mc.roleplay.impl;
 
 import com.bendertales.mc.roleplay.config.*;
-import com.bendertales.mc.roleplay.data.CharacterProperties;
+import com.bendertales.mc.roleplay.data.Character;
 import com.bendertales.mc.roleplay.data.CharacterReadabilityMode;
 import com.bendertales.mc.roleplay.data.CharacterVisibilityMode;
 import com.bendertales.mc.roleplay.data.PlayerConfiguration;
@@ -13,8 +13,9 @@ public class RolePlayManager {
 
 	private final ModConfigurationManager modConfigurationManager = new ModConfigurationManager();
 	private final PlayerConfigurationManager playerConfigurationManager = new PlayerConfigurationManager();
+	private final NewsstandManager newsstandManager = new NewsstandManager();
 
-	private ModConfiguration config;
+	private ModProperties config;
 
 	public int getDiceDistance() {
 		return config.getRollDice().getDistance();
@@ -39,6 +40,7 @@ public class RolePlayManager {
 
 	public void load() {
 		config = modConfigurationManager.load();
+		newsstandManager.load();
 	}
 
 	public PlayerConfiguration getOrCreatePlayerConfiguration(ServerPlayerEntity player) {
@@ -48,7 +50,7 @@ public class RolePlayManager {
 	public void createCharacter(ServerPlayerEntity owner) {
 		var config = getOrCreatePlayerConfiguration(owner);
 
-		var character = new CharacterProperties();
+		var character = new Character();
 		character.setDefaultVisibility(CharacterVisibilityMode.CAN_SEE);
 		character.setDefaultReadability(CharacterReadabilityMode.CAN_UNDERSTAND);
 
@@ -58,7 +60,7 @@ public class RolePlayManager {
 		playerConfigurationManager.savePlayerConfiguration(owner, config);
 	}
 
-	public CharacterProperties selectCharacter(ServerPlayerEntity player, int characterIndex) throws RolePlayException {
+	public Character selectCharacter(ServerPlayerEntity player, int characterIndex) throws RolePlayException {
 		var config = getOrCreatePlayerConfiguration(player);
 		config.selectCharacterIndex(characterIndex);
 

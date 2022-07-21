@@ -10,8 +10,10 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.command.EntitySelector;
 import net.minecraft.command.argument.EntityArgumentType;
+import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
 
@@ -29,7 +31,8 @@ public class CmdCharacterPerceptionCheck implements ModCommand {
 	}
 
 	@Override
-	public void register(CommandDispatcher<ServerCommandSource> dispatcher, boolean dedicated) {
+	public void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess registryAccess,
+	                     CommandManager.RegistrationEnvironment environment) {
 		dispatcher.register(
 			literal("rp").then(literal("character").then(literal("check")
                 .requires(getRequirements())
@@ -63,7 +66,7 @@ public class CmdCharacterPerceptionCheck implements ModCommand {
 			var visibility = perception == null ? null : perception.getVisibility();
 			var readability = perception == null ? null : perception.getReadability();
 			var msg = "%s's perception of %s: Visibility=%s - Readability=%s".formatted(
-					player.getName().asString(), character.formatName(), visibility, readability);
+					player.getEntityName(), character.formatName(), visibility, readability);
 			cmdSource.sendFeedback(Text.of(msg), false);
 		}
 		catch (RolePlayException e) {

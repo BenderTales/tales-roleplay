@@ -2,7 +2,7 @@ package com.bendertales.mc.roleplay.impl.vo;
 
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
 
@@ -17,7 +17,7 @@ public class RolePlayException extends Exception {
 	}
 
 	public CommandSyntaxException asCommandException() {
-		var msg = new LiteralText(getMessage()).formatted(Formatting.RED);
+		var msg = Text.literal(getMessage()).formatted(Formatting.RED);
 		return new CommandSyntaxException(new SimpleCommandExceptionType(msg), msg);
 	}
 }

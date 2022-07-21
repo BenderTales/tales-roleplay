@@ -11,11 +11,11 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
-import net.minecraft.network.MessageType;
+import net.minecraft.command.CommandRegistryAccess;
+import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
-import net.minecraft.util.Util;
 import org.apache.commons.lang3.StringUtils;
 
 import static net.minecraft.server.command.CommandManager.argument;
@@ -33,7 +33,8 @@ public class CmdRollDice implements ModCommand {
 	}
 
 	@Override
-	public void register(CommandDispatcher<ServerCommandSource> dispatcher, boolean dedicated) {
+	public void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess registryAccess,
+	                     CommandManager.RegistrationEnvironment environment) {
 		dispatcher.register(
 			literal("rolldice")
 				.requires(getRequirements())
@@ -118,7 +119,7 @@ public class CmdRollDice implements ModCommand {
 		assert server != null;
 		var playerManager = server.getPlayerManager();
 
-		return (text) -> playerManager.broadcast(text, MessageType.SYSTEM, Util.NIL_UUID);
+		return (text) -> playerManager.broadcast(text, false);
 	}
 
 	private Consumer<Text> showNearby(ServerPlayerEntity player) {
@@ -127,7 +128,7 @@ public class CmdRollDice implements ModCommand {
 		                   .filter(p -> p.getBlockPos().isWithinDistance(player.getBlockPos(), rolePlayManager.getDiceDistance()))
 		                   .toList();
 
-		return (text) -> players.forEach(p -> p.sendMessage(text, MessageType.SYSTEM, Util.NIL_UUID));
+		return (text) -> players.forEach(p -> p.sendMessage(text, false));
 	}
 
 	private Collection<Dice> parseDicesInput(String dicesInput) {
@@ -143,9 +144,7 @@ public class CmdRollDice implements ModCommand {
 
 		var random = new Random();
 		for (int i = 0 ; i < dice.throwsCount ; i++) {
-			int diff = dice.max - (dice.min-1);         // 1d1-6 -> 6 | 1d2-5 -> 4
-			int scaledResult = random.nextInt(diff);    // [0;5]      | [0;3]
-			int result = dice.min + scaledResult;
+			int result = random.nextInt(dice.min, dice.max+1);
 			results.add(result);
 		}
 

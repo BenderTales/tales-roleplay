@@ -35,7 +35,8 @@ public class RolePlayMessagePlaceholder implements PlaceholderHandler {
 
 	@Override
 	public SpecificToRecipientPlaceholderFormatter getSpecificToRecipientPlaceholderFormatter() {
-		return PlaceholderHandler.super.getSpecificToRecipientPlaceholderFormatter();
+		//TODO Crypt the message depending the hearing capability of the character
+		return (line, message, recipient) -> line.replace(PLACEHOLDER, message.content());
 	}
 
 	@Override

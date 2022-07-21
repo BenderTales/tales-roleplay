@@ -7,7 +7,7 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.server.network.ServerPlayerEntity;
 
 
-public class CharacterProperties {
+public class Character {
 
 	private final Map<UUID, OtherPlayerPerception> playerPerceptions = new Object2ObjectOpenHashMap<>();
 
