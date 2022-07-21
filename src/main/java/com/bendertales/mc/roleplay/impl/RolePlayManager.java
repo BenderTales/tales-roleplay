@@ -5,6 +5,7 @@ import com.bendertales.mc.roleplay.data.Character;
 import com.bendertales.mc.roleplay.data.CharacterReadabilityMode;
 import com.bendertales.mc.roleplay.data.CharacterVisibilityMode;
 import com.bendertales.mc.roleplay.data.PlayerConfiguration;
+import com.bendertales.mc.roleplay.impl.helper.Cypher;
 import com.bendertales.mc.roleplay.impl.vo.RolePlayException;
 import net.minecraft.server.network.ServerPlayerEntity;
 
@@ -16,6 +17,7 @@ public class RolePlayManager {
 	private final NewsstandManager newsstandManager = new NewsstandManager();
 
 	private ModProperties config;
+	private Cypher rpCypher = new Cypher("NOTINITIALIZED");
 
 	public int getDiceDistance() {
 		return config.getRollDice().getDistance();
@@ -41,6 +43,7 @@ public class RolePlayManager {
 	public void load() {
 		config = modConfigurationManager.load();
 		newsstandManager.load();
+		rpCypher = new Cypher(config.getComprehensionKey());
 	}
 
 	public PlayerConfiguration getOrCreatePlayerConfiguration(ServerPlayerEntity player) {
@@ -129,5 +132,13 @@ public class RolePlayManager {
 		var character = config.getCharacter(characterIndex);
 		character.setPlayerVisibility(otherPlayer, mode);
 		playerConfigurationManager.savePlayerConfiguration(player, config);
+	}
+
+	public String encryptText(String text) {
+		return rpCypher.encrypt(text);
+	}
+
+	public String decryptText(String text) {
+		return rpCypher.decrypt(text);
 	}
 }

@@ -9,6 +9,7 @@ public class ModProperties {
 	private NewsProperties news;
 	private MeProperties me;
 	private ChannelsProperties channels;
+	private String comprehensionKey = "BENDER";
 
 	public RollProperties getRollDice() {
 		return rollDice;
@@ -42,6 +43,14 @@ public class ModProperties {
 		this.channels = channels;
 	}
 
+	public String getComprehensionKey() {
+		return comprehensionKey;
+	}
+
+	public void setComprehensionKey(String comprehensionKey) {
+		this.comprehensionKey = comprehensionKey;
+	}
+
 	public void mergeFrom(ModProperties otherConfig) {
 		if (this.rollDice == null) {
 			this.rollDice = otherConfig.rollDice;
@@ -70,6 +79,10 @@ public class ModProperties {
 		else {
 			this.channels.mergeFrom(otherConfig.channels);
 		}
+
+		if (this.comprehensionKey == null) {
+			this.comprehensionKey = otherConfig.comprehensionKey;
+		}
 	}
 
 	@Override
@@ -79,11 +92,12 @@ public class ModProperties {
 		ModProperties that = (ModProperties) o;
 		return Objects.equals(rollDice, that.rollDice)
 		       && Objects.equals(news, that.news)
-		       && Objects.equals(me, that.me);
+		       && Objects.equals(me, that.me)
+		       && Objects.equals(comprehensionKey, that.comprehensionKey);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(rollDice, news, me);
+		return Objects.hash(rollDice, news, me, comprehensionKey);
 	}
 }
