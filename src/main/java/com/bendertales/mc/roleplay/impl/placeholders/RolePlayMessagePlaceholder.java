@@ -1,8 +1,8 @@
 package com.bendertales.mc.roleplay.impl.placeholders;
 
+import com.bendertales.mc.chatapi.api.PerRecipientPlaceholderFormatter;
 import com.bendertales.mc.chatapi.api.PlaceholderFormatter;
 import com.bendertales.mc.chatapi.api.PlaceholderHandler;
-import com.bendertales.mc.chatapi.api.SpecificToRecipientPlaceholderFormatter;
 import com.bendertales.mc.roleplay.RolePlayConstants;
 import com.bendertales.mc.roleplay.impl.RolePlayManager;
 import net.minecraft.util.Identifier;
@@ -19,8 +19,8 @@ public class RolePlayMessagePlaceholder implements PlaceholderHandler {
 	}
 
 	@Override
-	public int getDefaultPriorityOrder() {
-		return 98;
+	public String getPlaceholder() {
+		return PLACEHOLDER;
 	}
 
 	@Override
@@ -34,9 +34,9 @@ public class RolePlayMessagePlaceholder implements PlaceholderHandler {
 	}
 
 	@Override
-	public SpecificToRecipientPlaceholderFormatter getSpecificToRecipientPlaceholderFormatter() {
+	public PerRecipientPlaceholderFormatter getPerRecipientPlaceholderFormatter() {
 		//TODO Crypt the message depending the hearing capability of the character
-		return (line, message, recipient) -> line.replace(PLACEHOLDER, message.content());
+		return (message, recipient) -> message.content();
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package com.bendertales.mc.roleplay.impl.placeholders;
 
+import com.bendertales.mc.chatapi.api.PerRecipientPlaceholderFormatter;
 import com.bendertales.mc.chatapi.api.PlaceholderFormatter;
 import com.bendertales.mc.chatapi.api.PlaceholderHandler;
 import com.bendertales.mc.roleplay.RolePlayConstants;
@@ -18,8 +19,8 @@ public class CharacterPlaceholder implements PlaceholderHandler {
 	}
 
 	@Override
-	public int getDefaultPriorityOrder() {
-		return 2;
+	public String getPlaceholder() {
+		return PLACEHOLDER;
 	}
 
 	@Override
@@ -29,7 +30,8 @@ public class CharacterPlaceholder implements PlaceholderHandler {
 
 	@Override
 	public PlaceholderFormatter getPlaceholderFormatter() {
-		return (line, message) -> line.replace(PLACEHOLDER, message.sender().getEntityName());
+		//TODO replace by character name
+		return (message) -> message.sender().getEntityName();
 	}
 
 	@Override

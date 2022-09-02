@@ -34,7 +34,7 @@ public class ModConfigurationManager {
 	}
 
 	private void createIfNecessary(ModProperties modProperties) {
-		if (Files.exists(configFile)) {
+		if (!Files.exists(configFile)) {
 			tryWriteConfiguration(modProperties);
 		}
 	}

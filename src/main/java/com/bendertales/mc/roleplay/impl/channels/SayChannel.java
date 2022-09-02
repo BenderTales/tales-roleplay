@@ -1,7 +1,6 @@
 package com.bendertales.mc.roleplay.impl.channels;
 
-import java.util.Collection;
-import java.util.Collections;
+import java.util.List;
 
 import com.bendertales.mc.roleplay.RolePlayConstants;
 import com.bendertales.mc.roleplay.impl.RolePlayManager;
@@ -10,7 +9,7 @@ import net.minecraft.util.Identifier;
 
 public class SayChannel extends AbstractDistanceChannel {
 
-	public static final Collection<String> PERMISSION = Collections.singleton("roleplay.channels.say");
+	public static final List<String> PERMISSION = List.of("roleplay.channels.say");
 
 	private final RolePlayManager rolePlayManager;
 

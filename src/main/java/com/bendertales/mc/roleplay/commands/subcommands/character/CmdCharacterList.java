@@ -1,25 +1,14 @@
-package com.bendertales.mc.roleplay.commands.character;
+package com.bendertales.mc.roleplay.commands.subcommands.character;
 
-import java.util.Collection;
-import java.util.List;
-
-import com.bendertales.mc.roleplay.commands.ModCommand;
 import com.bendertales.mc.roleplay.impl.RolePlayManager;
-import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.command.EntitySelector;
-import net.minecraft.command.argument.EntityArgumentType;
-import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
 
-import static net.minecraft.server.command.CommandManager.argument;
-import static net.minecraft.server.command.CommandManager.literal;
 
-
-public class CmdCharacterList implements ModCommand {
+public class CmdCharacterList {
 
 	private final RolePlayManager rolePlayManager;
 
@@ -27,24 +16,6 @@ public class CmdCharacterList implements ModCommand {
 		this.rolePlayManager = rolePlayManager;
 	}
 
-	@Override
-	public void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess registryAccess,
-	                     CommandManager.RegistrationEnvironment environment) {
-		dispatcher.register(
-			literal("rp").then(literal("character").then(literal("list")
-                .requires(getRequirements())
-                .then(argument("player", EntityArgumentType.player())
-                    .executes(this))
-			))
-		);
-	}
-
-	@Override
-	public Collection<String> getRequiredPermissions() {
-		return List.of("roleplay.commands.*", "roleplay.commands.character.list");
-	}
-
-	@Override
 	public int run(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
 		var cmdSource = context.getSource();
 		var playerSelector = context.getArgument("player", EntitySelector.class);
@@ -63,5 +34,4 @@ public class CmdCharacterList implements ModCommand {
 		}
 		return 0;
 	}
-
 }

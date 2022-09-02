@@ -18,6 +18,6 @@ public class RolePlayException extends Exception {
 
 	public CommandSyntaxException asCommandException() {
 		var msg = Text.literal(getMessage()).formatted(Formatting.RED);
-		return new CommandSyntaxException(new SimpleCommandExceptionType(msg), msg);
+		return new SimpleCommandExceptionType(msg).create();
 	}
 }

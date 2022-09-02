@@ -1,9 +1,9 @@
 plugins {
-    id 'fabric-loom' version '0.12-SNAPSHOT'
+    id 'fabric-loom' version '1.0-SNAPSHOT'
     id 'maven-publish'
 }
 
-version = System.getenv("TALES_PROJECT_VERSION") ?: project.mod_version
+version = "${project.minecraft_version}_${project.mod_version}"
 group = project.maven_group
 
 repositories {
@@ -14,10 +14,10 @@ repositories {
     // for more information about repositories.
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
     maven {
-        url = uri("https://maven.pkg.github.com/BenderTales/tales-chat-api")
+        url "https://maven.pkg.jetbrains.space/tales-of-bender/p/mcsrv/maven"
         credentials {
-            username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
-            password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
+            username = TOB_SPACE_USERNAME
+            password = TOB_SPACE_PASSWORD
         }
     }
 }
@@ -30,8 +30,8 @@ dependencies {
 
     // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-    modImplementation 'me.lucko:fabric-permissions-api:0.2-SNAPSHOT'
-    modImplementation 'com.bendertales.mc:tales-chat-api:1.0.0-RC.6'
+    modImplementation "com.bendertales.mc:tales-server-common:1.19.2_1.0.0-SNAPSHOT.6"
+    modImplementation 'com.bendertales.mc:tales-chat-api:1.19.2_1.0.0-SNAPSHOT.0'
 }
 
 processResources {
@@ -76,19 +76,21 @@ jar {
 // configure the maven publication
 publishing {
     publications {
-        gpr(MavenPublication) {
-            from(components.java)
+        maven(MavenPublication) {
+            groupId = "${project.maven_group}"
+            artifactId = "${project.archivesBaseName}"
+            version = "${project.version}"
+            from components.java
         }
     }
 
     // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
     repositories {
         maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/BenderTales/tales-roleplay")
+            url "https://maven.pkg.jetbrains.space/tales-of-bender/p/mcsrv/maven"
             credentials {
-                username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
-                password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
+                username = TOB_SPACE_USERNAME
+                password = TOB_SPACE_PASSWORD
             }
         }
     }

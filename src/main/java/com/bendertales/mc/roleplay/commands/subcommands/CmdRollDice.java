@@ -1,28 +1,21 @@
-package com.bendertales.mc.roleplay.commands;
+package com.bendertales.mc.roleplay.commands.subcommands;
 
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.regex.Pattern;
 
 import com.bendertales.mc.roleplay.impl.RolePlayManager;
-import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
-import net.minecraft.command.CommandRegistryAccess;
-import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import org.apache.commons.lang3.StringUtils;
 
-import static net.minecraft.server.command.CommandManager.argument;
-import static net.minecraft.server.command.CommandManager.literal;
 
-
-public class CmdRollDice implements ModCommand {
+public class CmdRollDice {
 
 	private static final Pattern DICE_PATTERN = Pattern.compile("(\\d+)d(?:(\\d+)-)?(\\d+)");
 
@@ -30,26 +23,6 @@ public class CmdRollDice implements ModCommand {
 
 	public CmdRollDice(RolePlayManager rolePlayManager) {
 		this.rolePlayManager = rolePlayManager;
-	}
-
-	@Override
-	public void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess registryAccess,
-	                     CommandManager.RegistrationEnvironment environment) {
-		dispatcher.register(
-			literal("rolldice")
-				.requires(getRequirements())
-				.executes(this::runBaseDice)
-				.then(literal("--global")
-			        .then(argument("dices", StringArgumentType.greedyString())
-		                .executes(this::rollGlobal)))
-				.then(argument("dices", StringArgumentType.greedyString())
-			        .executes(this))
-		);
-	}
-
-	@Override
-	public Collection<String> getRequiredPermissions() {
-		return List.of("roleplay.commands.rolldice");
 	}
 
 	public int runBaseDice(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
@@ -66,7 +39,6 @@ public class CmdRollDice implements ModCommand {
 		return rollDices(player, true, dices);
 	}
 
-	@Override
 	public int run(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
 		var cmdSource = context.getSource();
 		var player = cmdSource.getPlayer();
@@ -133,10 +105,10 @@ public class CmdRollDice implements ModCommand {
 
 	private Collection<Dice> parseDicesInput(String dicesInput) {
 		return Arrays.stream(dicesInput.split(" "))
-		        .filter(StringUtils::isNotBlank)
-		        .map(this::parseDiceInput)
-                .filter(Objects::nonNull)
-                .toList();
+		             .filter(StringUtils::isNotBlank)
+		             .map(this::parseDiceInput)
+		             .filter(Objects::nonNull)
+		             .toList();
 	}
 
 	private IntArrayList roll(Dice dice) {

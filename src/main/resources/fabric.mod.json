@@ -23,7 +23,7 @@
     "fabricloader": ">=0.14.8",
     "fabric": "*",
     "minecraft": "1.19.1-beta.6",
-    "fabric-permissions-api-v0": "*",
-    "tales-chat-api": ">=1.0.0-RC.6"
+    "tales-server-common": "1.19.2_1.0.0-SNAPSHOT.6",
+    "tales-chat-api": "1.19.2_1.0.0-SNAPSHOT.0"
   }
 }
