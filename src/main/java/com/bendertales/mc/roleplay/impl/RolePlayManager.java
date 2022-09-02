@@ -12,9 +12,9 @@ import net.minecraft.server.network.ServerPlayerEntity;
 
 public class RolePlayManager {
 
-	private final ModSettingsRepository      modSettingsRepository      = new ModSettingsRepository();
-	private final PlayerConfigurationManager playerConfigurationManager = new PlayerConfigurationManager();
-	private final NewsstandManager newsstandManager = new NewsstandManager();
+	private final ModSettingsRepository modSettingsRepository = new ModSettingsRepository();
+	private final PlayerDataRepository  playerDataRepository  = new PlayerDataRepository();
+	private final NewsstandManager      newsstandManager      = new NewsstandManager();
 
 	private ModProperties config;
 	private Cypher rpCypher = new Cypher("NOTINITIALIZED");
@@ -36,7 +36,7 @@ public class RolePlayManager {
 	}
 
 	public void reload() {
-		playerConfigurationManager.clearSettings();
+		playerDataRepository.clearCache();
 		load();
 	}
 
@@ -47,27 +47,25 @@ public class RolePlayManager {
 	}
 
 	public PlayerConfiguration getOrCreatePlayerConfiguration(ServerPlayerEntity player) {
-		return playerConfigurationManager.getOrCreatePlayerConfiguration(player);
+		return playerDataRepository.get(player);
 	}
 
 	public void createCharacter(ServerPlayerEntity owner) {
-		var config = getOrCreatePlayerConfiguration(owner);
+		playerDataRepository.update(owner, config -> {
+			var character = new Character();
+			character.setDefaultVisibility(CharacterVisibilityMode.CAN_SEE);
+			character.setDefaultReadability(CharacterReadabilityMode.CAN_UNDERSTAND);
 
-		var character = new Character();
-		character.setDefaultVisibility(CharacterVisibilityMode.CAN_SEE);
-		character.setDefaultReadability(CharacterReadabilityMode.CAN_UNDERSTAND);
-
-		var characters = config.getCharacters();
-		characters.add(character);
-
-		playerConfigurationManager.savePlayerConfiguration(owner, config);
+			var characters = config.getCharacters();
+			characters.add(character);
+		});
 	}
 
 	public Character selectCharacter(ServerPlayerEntity player, int characterIndex) throws RolePlayException {
 		var config = getOrCreatePlayerConfiguration(player);
 		config.selectCharacterIndex(characterIndex);
 
-		playerConfigurationManager.savePlayerConfiguration(player, config);
+		playerDataRepository.save(player, config);
 
 		return config.getSelectedCharacter();
 	}
@@ -76,13 +74,13 @@ public class RolePlayManager {
 	throws RolePlayException {
 		var config = getOrCreatePlayerConfiguration(player);
 		config.renameCharacter(characterIndex, newName);
-		playerConfigurationManager.savePlayerConfiguration(player, config);
+		playerDataRepository.save(player, config);
 	}
 
 	public void deleteCharacter(ServerPlayerEntity player, int characterIndex) throws RolePlayException {
 		var config = getOrCreatePlayerConfiguration(player);
 		config.removeCharacter(characterIndex);
-		playerConfigurationManager.savePlayerConfiguration(player, config);
+		playerDataRepository.save(player, config);
 	}
 
 	public void setDefaultReadability(ServerPlayerEntity player, int characterIndex, CharacterReadabilityMode mode)
@@ -90,7 +88,7 @@ public class RolePlayManager {
 		var config = getOrCreatePlayerConfiguration(player);
 		var character = config.getCharacter(characterIndex);
 		character.setDefaultReadability(mode);
-		playerConfigurationManager.savePlayerConfiguration(player, config);
+		playerDataRepository.save(player, config);
 	}
 
 	public void clearPlayerReadability(ServerPlayerEntity player, int characterIndex,
@@ -99,7 +97,7 @@ public class RolePlayManager {
 		var config = getOrCreatePlayerConfiguration(player);
 		var character = config.getCharacter(characterIndex);
 		character.clearPlayerReadability(otherPlayer);
-		playerConfigurationManager.savePlayerConfiguration(player, config);
+		playerDataRepository.save(player, config);
 	}
 
 	public void setPlayerReadability(ServerPlayerEntity player, int characterIndex, ServerPlayerEntity otherPlayer,
@@ -107,7 +105,7 @@ public class RolePlayManager {
 		var config = getOrCreatePlayerConfiguration(player);
 		var character = config.getCharacter(characterIndex);
 		character.setPlayerReadability(otherPlayer, mode);
-		playerConfigurationManager.savePlayerConfiguration(player, config);
+		playerDataRepository.save(player, config);
 	}
 
 	public void setDefaultVisibility(ServerPlayerEntity player, int characterIndex, CharacterVisibilityMode mode)
@@ -115,7 +113,7 @@ public class RolePlayManager {
 		var config = getOrCreatePlayerConfiguration(player);
 		var character = config.getCharacter(characterIndex);
 		character.setDefaultVisibility(mode);
-		playerConfigurationManager.savePlayerConfiguration(player, config);
+		playerDataRepository.save(player, config);
 	}
 
 	public void clearPlayerVisibility(ServerPlayerEntity player, int characterIndex, ServerPlayerEntity otherPlayer)
@@ -123,7 +121,7 @@ public class RolePlayManager {
 		var config = getOrCreatePlayerConfiguration(player);
 		var character = config.getCharacter(characterIndex);
 		character.clearPlayerVisibility(otherPlayer);
-		playerConfigurationManager.savePlayerConfiguration(player, config);
+		playerDataRepository.save(player, config);
 	}
 
 	public void setPlayerVisibility(ServerPlayerEntity player, int characterIndex, ServerPlayerEntity otherPlayer,
@@ -131,7 +129,7 @@ public class RolePlayManager {
 		var config = getOrCreatePlayerConfiguration(player);
 		var character = config.getCharacter(characterIndex);
 		character.setPlayerVisibility(otherPlayer, mode);
-		playerConfigurationManager.savePlayerConfiguration(player, config);
+		playerDataRepository.save(player, config);
 	}
 
 	public String encryptText(String text) {
