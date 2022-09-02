@@ -12,7 +12,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 
 public class RolePlayManager {
 
-	private final ModConfigurationManager modConfigurationManager = new ModConfigurationManager();
+	private final ModSettingsRepository      modSettingsRepository      = new ModSettingsRepository();
 	private final PlayerConfigurationManager playerConfigurationManager = new PlayerConfigurationManager();
 	private final NewsstandManager newsstandManager = new NewsstandManager();
 
@@ -41,7 +41,7 @@ public class RolePlayManager {
 	}
 
 	public void load() {
-		config = modConfigurationManager.load();
+		config = modSettingsRepository.getConfig();
 		newsstandManager.load();
 		rpCypher = new Cypher(config.getComprehensionKey());
 	}
