@@ -35,8 +35,22 @@ public class RolePlayMessagePlaceholder implements PlaceholderHandler {
 
 	@Override
 	public PerRecipientPlaceholderFormatter getPerRecipientPlaceholderFormatter() {
-		//TODO Crypt the message depending the hearing capability of the character
-		return (message, recipient) -> message.content();
+		return (message, recipient) -> {
+			var sender = message.sender();
+			var config = rolePlayManager.getOrCreatePlayerConfiguration(sender);
+			var currentCharacter = config.getSelectedCharacter();
+			if (currentCharacter == null) {
+				return message.content();
+			}
+			var readability = currentCharacter.getPlayerReadability(recipient);
+			return switch (readability) {
+				case CANNOT_HEAR -> "";
+				case CANNOT_UNDERSTAND -> rolePlayManager.encryptText(message.content());
+				case CANNOT_UNDERSTAND_WITH_MAGIC ->
+					"§k" + rolePlayManager.encryptText(message.content()) + "§r";
+				default -> message.content();
+			};
+		};
 	}
 
 	@Override

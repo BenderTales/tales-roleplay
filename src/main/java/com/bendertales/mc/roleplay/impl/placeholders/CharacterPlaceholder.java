@@ -1,6 +1,5 @@
 package com.bendertales.mc.roleplay.impl.placeholders;
 
-import com.bendertales.mc.chatapi.api.PerRecipientPlaceholderFormatter;
 import com.bendertales.mc.chatapi.api.PlaceholderFormatter;
 import com.bendertales.mc.chatapi.api.PlaceholderHandler;
 import com.bendertales.mc.roleplay.RolePlayConstants;
@@ -30,8 +29,14 @@ public class CharacterPlaceholder implements PlaceholderHandler {
 
 	@Override
 	public PlaceholderFormatter getPlaceholderFormatter() {
-		//TODO replace by character name
-		return (message) -> message.sender().getEntityName();
+		return (message) -> {
+			var config = rolePlayManager.getOrCreatePlayerConfiguration(message.sender());
+			var selectedCharacter = config.getSelectedCharacter();
+			if (selectedCharacter == null) {
+				return message.sender().getEntityName();
+			}
+			return selectedCharacter.getName();
+		};
 	}
 
 	@Override
