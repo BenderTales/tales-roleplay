@@ -5,14 +5,19 @@ import com.bendertales.mc.roleplay.impl.RolePlayManager;
 import com.bendertales.mc.roleplay.impl.vo.RolePlayException;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import net.minecraft.command.EntitySelector;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 
 import static com.mojang.brigadier.Command.SINGLE_SUCCESS;
 
 
 public class CmdCharacterVisibility {
+
+	private static final SimpleCommandExceptionType visibilityException =
+			new SimpleCommandExceptionType(Text.literal("Invalid visibility").formatted(Formatting.RED));
 
 	private final RolePlayManager rolePlayManager;
 
@@ -25,7 +30,7 @@ public class CmdCharacterVisibility {
 		var playerSelector = context.getArgument("player", EntitySelector.class);
 		var characterIndex = context.getArgument("characterIndex", Integer.class);
 		var player = playerSelector.getPlayer(cmdSource);
-		var mode = context.getArgument("mode", CharacterVisibilityMode.class);
+		var mode = getMode(context);
 
 		try {
 			rolePlayManager.setDefaultVisibility(player, characterIndex, mode);
@@ -64,7 +69,7 @@ public class CmdCharacterVisibility {
 		var player = playerSelector.getPlayer(cmdSource);
 		var otherPlayerSelector = context.getArgument("other-player", EntitySelector.class);
 		var otherPlayer = otherPlayerSelector.getPlayer(cmdSource);
-		var mode = context.getArgument("mode", CharacterVisibilityMode.class);
+		var mode = getMode(context);
 
 		try {
 			rolePlayManager.setPlayerVisibility(player, characterIndex, otherPlayer, mode);
@@ -74,5 +79,14 @@ public class CmdCharacterVisibility {
 			throw e.asCommandException();
 		}
 		return SINGLE_SUCCESS;
+	}
+
+	private CharacterVisibilityMode getMode(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+		var modeStr = context.getArgument("mode", String.class);
+		var mode = CharacterVisibilityMode.byName(modeStr.toUpperCase());
+		if (mode == null) {
+			throw visibilityException.create();
+		}
+		return mode;
 	}
 }

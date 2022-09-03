@@ -18,8 +18,8 @@ public class Roleplay implements ModInitializer {
 	public void onInitialize() {
 		var rolePlayManager = new RolePlayManager();
 
-		rolePlayManager.load();
-
+		var messageSender = ChatAPI.getMessageSender();
+		CommandsRegistrar.registerCommands(rolePlayManager, messageSender);
 
 		ServerLifecycleEvents.SERVER_STARTING.register(server -> {
 			ChatAPI.registerPlaceholder(new CharacterPlaceholder(rolePlayManager));
@@ -28,10 +28,10 @@ public class Roleplay implements ModInitializer {
 			ChatAPI.registerChannel(new SayChannel(rolePlayManager));
 			ChatAPI.registerChannel(new WhisperChannel(rolePlayManager));
 			ChatAPI.registerChannel(new YellChannel(rolePlayManager));
+		});
 
-			var messageSender = ChatAPI.getMessageSender();
-
-			CommandsRegistrar.registerCommands(rolePlayManager, messageSender);
+		ServerLifecycleEvents.SERVER_STARTED.register(server -> {
+			rolePlayManager.load();
 		});
 	}
 

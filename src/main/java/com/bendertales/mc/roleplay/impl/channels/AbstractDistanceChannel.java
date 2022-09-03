@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 import com.bendertales.mc.chatapi.api.MessageVisibility;
 import com.bendertales.mc.chatapi.api.ModChannelImplementationsProvider;
 import com.bendertales.mc.chatapi.api.RecipientFilter;
-import com.bendertales.mc.roleplay.impl.helper.Perms;
+import com.bendertales.mc.talesservercommon.helpers.Perms;
 import net.minecraft.server.network.ServerPlayerEntity;
 
 

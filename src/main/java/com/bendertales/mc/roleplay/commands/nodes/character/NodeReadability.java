@@ -3,11 +3,12 @@ package com.bendertales.mc.roleplay.commands.nodes.character;
 import java.util.List;
 
 import com.bendertales.mc.roleplay.commands.subcommands.character.CmdCharacterReadability;
-import com.bendertales.mc.roleplay.commands.type.ReadabilityArgumentType;
+import com.bendertales.mc.roleplay.commands.suggestions.ReadabilitySuggestionProvider;
 import com.bendertales.mc.roleplay.impl.RolePlayManager;
 import com.bendertales.mc.talesservercommon.commands.CommandNodeRequirements;
 import com.bendertales.mc.talesservercommon.commands.TalesCommandNode;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
+import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.server.command.ServerCommandSource;
@@ -29,20 +30,22 @@ public class NodeReadability implements TalesCommandNode {
 
 	@Override
 	public LiteralArgumentBuilder<ServerCommandSource> asBrigadierNode() {
-		var type = new ReadabilityArgumentType();
+		var suggestionProvider = new ReadabilitySuggestionProvider();
 
 		return literal("readability")
 		       .requires(getRequirements().asPredicate())
 		       .then(argument("player", EntityArgumentType.player())
                     .then(argument("characterIndex", IntegerArgumentType.integer(0))
 	                    .then(literal("default")
-                            .then(argument("mode", type)
+                            .then(argument("mode", StringArgumentType.word())
+                                .suggests(suggestionProvider)
                                 .executes(cmdReadability::playerDefault)))
 	                    .then(argument("other-player", EntityArgumentType.player())
                             .then(literal("clear")
                                 .executes(cmdReadability::clearPlayer))
                             .then(literal("set")
-                                .then(argument("mode", type)
+                                .then(argument("mode", StringArgumentType.word())
+                                    .suggests(suggestionProvider)
                                     .executes(cmdReadability::setPlayer))))));
 	}
 
