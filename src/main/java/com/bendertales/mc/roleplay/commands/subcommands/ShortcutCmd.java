@@ -1,7 +1,7 @@
 package com.bendertales.mc.roleplay.commands.subcommands;
 
-import com.bendertales.mc.chatapi.api.ChatException;
-import com.bendertales.mc.chatapi.api.Messenger;
+import fr.bendertales.mc.channels.api.ChatException;
+import fr.bendertales.mc.channels.api.Messenger;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;

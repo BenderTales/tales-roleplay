@@ -14,10 +14,10 @@ repositories {
     // for more information about repositories.
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
     maven {
-        url "https://maven.pkg.jetbrains.space/tales-of-bender/p/mcsrv/maven"
+        url = uri("https://maven.pkg.github.com/BenderTales/BenderTales")
         credentials {
-            username = TOB_SPACE_USERNAME
-            password = TOB_SPACE_PASSWORD
+            username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+            password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
         }
     }
 }
@@ -30,8 +30,8 @@ dependencies {
 
     // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-    modImplementation "com.bendertales.mc:tales-server-common:1.19.2_1.0.0-SNAPSHOT.7"
-    modImplementation 'com.bendertales.mc:tales-chat-api:1.19.2_1.0.0-SNAPSHOT.1'
+    modImplementation "fr.bendertales.mc:tales-server-common:1.19.2-1.0.0+RC"
+    modImplementation 'fr.bendertales.mc:tales-channels-api:1.19.2-1.0.0+RC'
 }
 
 processResources {
@@ -87,10 +87,11 @@ publishing {
     // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
     repositories {
         maven {
-            url "https://maven.pkg.jetbrains.space/tales-of-bender/p/mcsrv/maven"
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/BenderTales/BenderTales")
             credentials {
-                username = TOB_SPACE_USERNAME
-                password = TOB_SPACE_PASSWORD
+                username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+                password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
             }
         }
     }

@@ -4,10 +4,10 @@ import java.util.List;
 
 import com.bendertales.mc.roleplay.RolePlayConstants;
 import com.bendertales.mc.roleplay.config.*;
-import com.bendertales.mc.talesservercommon.repository.ModPaths;
-import com.bendertales.mc.talesservercommon.repository.config.ConfigRepository;
-import com.bendertales.mc.talesservercommon.repository.serialization.CommonSerializers;
-import com.bendertales.mc.talesservercommon.repository.serialization.JsonSerializerRegistration;
+import fr.bendertales.mc.talesservercommon.repository.ModPaths;
+import fr.bendertales.mc.talesservercommon.repository.config.ConfigRepository;
+import fr.bendertales.mc.talesservercommon.repository.serialization.CommonSerializers;
+import fr.bendertales.mc.talesservercommon.repository.serialization.JsonSerializerRegistration;
 
 
 public class ModSettingsRepository extends ConfigRepository<ModProperties, ModProperties> {

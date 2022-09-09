@@ -5,7 +5,7 @@ import java.util.List;
 import com.bendertales.mc.roleplay.commands.nodes.rp.NodeCrypt;
 import com.bendertales.mc.roleplay.commands.nodes.rp.NodeReload;
 import com.bendertales.mc.roleplay.impl.RolePlayManager;
-import com.bendertales.mc.talesservercommon.commands.AbstractIntermediaryCommandNode;
+import fr.bendertales.mc.talesservercommon.commands.AbstractIntermediaryCommandNode;
 
 
 public class NodeRP extends AbstractIntermediaryCommandNode {

@@ -2,7 +2,6 @@ package com.bendertales.mc.roleplay.commands;
 
 import java.util.stream.Stream;
 
-import com.bendertales.mc.chatapi.api.Messenger;
 import com.bendertales.mc.roleplay.RolePlayConstants;
 import com.bendertales.mc.roleplay.commands.nodes.root.NodeRP;
 import com.bendertales.mc.roleplay.commands.nodes.root.NodeRollDice;
@@ -11,7 +10,8 @@ import com.bendertales.mc.roleplay.impl.RolePlayManager;
 import com.bendertales.mc.roleplay.impl.channels.SayChannel;
 import com.bendertales.mc.roleplay.impl.channels.WhisperChannel;
 import com.bendertales.mc.roleplay.impl.channels.YellChannel;
-import com.bendertales.mc.talesservercommon.commands.TalesCommandNode;
+import fr.bendertales.mc.channels.api.Messenger;
+import fr.bendertales.mc.talesservercommon.commands.TalesCommandNode;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 
 

@@ -2,10 +2,10 @@ package com.bendertales.mc.roleplay.commands.nodes.root;
 
 import java.util.List;
 
-import com.bendertales.mc.chatapi.api.Messenger;
+import fr.bendertales.mc.channels.api.Messenger;
 import com.bendertales.mc.roleplay.commands.subcommands.ShortcutCmd;
-import com.bendertales.mc.talesservercommon.commands.CommandNodeRequirements;
-import com.bendertales.mc.talesservercommon.commands.TalesCommandNode;
+import fr.bendertales.mc.talesservercommon.commands.CommandNodeRequirements;
+import fr.bendertales.mc.talesservercommon.commands.TalesCommandNode;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.server.command.ServerCommandSource;

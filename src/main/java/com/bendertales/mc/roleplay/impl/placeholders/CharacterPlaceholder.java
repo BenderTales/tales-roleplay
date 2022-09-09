@@ -1,7 +1,7 @@
 package com.bendertales.mc.roleplay.impl.placeholders;
 
-import com.bendertales.mc.chatapi.api.PlaceholderFormatter;
-import com.bendertales.mc.chatapi.api.PlaceholderHandler;
+import fr.bendertales.mc.channels.api.PlaceholderFormatter;
+import fr.bendertales.mc.channels.api.PlaceholderHandler;
 import com.bendertales.mc.roleplay.RolePlayConstants;
 import com.bendertales.mc.roleplay.impl.RolePlayManager;
 import net.minecraft.util.Identifier;

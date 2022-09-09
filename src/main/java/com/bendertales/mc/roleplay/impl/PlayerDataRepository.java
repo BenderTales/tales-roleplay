@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.bendertales.mc.roleplay.RolePlayConstants;
 import com.bendertales.mc.roleplay.data.PlayerConfiguration;
-import com.bendertales.mc.talesservercommon.repository.data.AbstractPlayerDataRepository;
-import com.bendertales.mc.talesservercommon.repository.serialization.JsonSerializerRegistration;
+import fr.bendertales.mc.talesservercommon.repository.data.AbstractPlayerDataRepository;
+import fr.bendertales.mc.talesservercommon.repository.serialization.JsonSerializerRegistration;
 
 
 public class PlayerDataRepository extends AbstractPlayerDataRepository<PlayerConfiguration, PlayerConfiguration> {

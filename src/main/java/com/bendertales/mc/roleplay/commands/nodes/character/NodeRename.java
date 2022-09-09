@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.bendertales.mc.roleplay.commands.subcommands.character.CmdCharacterRename;
 import com.bendertales.mc.roleplay.impl.RolePlayManager;
-import com.bendertales.mc.talesservercommon.commands.CommandNodeRequirements;
-import com.bendertales.mc.talesservercommon.commands.TalesCommandNode;
+import fr.bendertales.mc.talesservercommon.commands.CommandNodeRequirements;
+import fr.bendertales.mc.talesservercommon.commands.TalesCommandNode;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
