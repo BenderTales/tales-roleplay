@@ -13,7 +13,7 @@
   "environment": "server",
   "entrypoints": {
     "main": [
-      "com.bendertales.mc.roleplay.Roleplay"
+      "fr.bendertales.mc.roleplay.Roleplay"
     ]
   },
   "mixins": [
