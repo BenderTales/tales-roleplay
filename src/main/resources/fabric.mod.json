@@ -24,6 +24,6 @@
     "fabric": "*",
     "minecraft": "1.19.2",
     "tales-server-common": "1.19.2-1.0.0+RC",
-    "tales-channels": "1.19.2-1.0.0+RC"
+    "tales-channels-api": "1.19.2-1.0.0+RC"
   }
 }
